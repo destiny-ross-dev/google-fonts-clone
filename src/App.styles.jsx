@@ -15,7 +15,7 @@ body {
   padding:0;
   margin:0;
   font-size:1.5rem;
-  line-height:2;
+  line-height:1.5;
   text-align: center;
 }
 a {
@@ -59,15 +59,20 @@ export const AppContainer = styled.div`
 
 export const ToTopButton = styled.button`
   position: fixed;
-  right: 50px;
-  bottom: 45px;
-  font-size: 36px;
+  right: 60px;
+  bottom: 60px;
+  font-size: 20px;
   background: white;
   border: 1px solid ${props => props.theme.accent};
   border-radius: 50px;
-  height: 50px;
-  width: 50px;
+  height: 30px;
+  width: 30px;
   color: ${props => props.theme.accent};
+  z-index: 10;
+  :hover {
+    transform: scale(1.5);
+    transition: scale 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
 `;
 
 export default GlobalStyle;

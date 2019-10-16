@@ -4,19 +4,23 @@ import Header from "./components/header/header.component";
 import Toolbar from "./components/toolbar/toolbar.component";
 import GlobalStyle, { AppContainer, ToTopButton } from "./App.styles";
 import FontList from "./components/font-list/font-list.component";
+import SavedList from "./components/saved-list/saved-list.component";
+import Footer from "./components/footer/footer.component";
 
 const lightTheme = {
   bg: "white",
   color: "rgba(0,0,0,.6)",
   accent: "#ff5252",
+  dark: "#FF1F1F",
   bs: "0 4px 4px rgba(0,0,0,.06)",
-  border: "1px solid rgba(0, 0, 0, 0.14)"
+  border: "1px solid rgba(0, 0, 0, 0.06)"
 };
 
 const darkTheme = {
   bg: "#1F1B24",
   color: "white",
   accent: "#ff5252",
+  dark: "#FF1F1F",
   border: "1px solid white"
 };
 
@@ -27,9 +31,14 @@ function App() {
   const [displayText, setDisplayText] = useState(
     "Sphinx of black quartz, judge my vow."
   );
-  const [fontSize, setFontSize] = useState("12px");
+  const [fontSize, setFontSize] = useState("32px");
   const [themeIsLight, setThemeIsLight] = useState(true);
   const [listType, setListType] = useState("grid");
+  const [savedListOpen, setSavedListOpen] = useState(true);
+  const [savedList, setSavedList] = useState([
+    { family: "Open Sans", category: "sans-serif" },
+    { family: "Roboto", category: "sans-serif" }
+  ]);
 
   useEffect(() => {
     window.addEventListener("scroll", logScroll);
@@ -48,7 +57,7 @@ function App() {
   const reset = () => {
     setDisplayTextType("sentence");
     setDisplayText("Sphinx of black quartz, judge my vow.");
-    setFontSize("12px");
+    setFontSize("32px");
     setThemeIsLight(true);
     setListType("grid");
   };
@@ -77,9 +86,18 @@ function App() {
               window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
             }
           >
-            <i className="fal fa-arrow-to-top"></i>
+            <i className="fas fa-arrow-up"></i>
           </ToTopButton>
         )}
+        {savedList.length >= 1 && (
+          <SavedList
+            savedList={savedList}
+            setSavedList={setSavedList}
+            savedListOpen={savedListOpen}
+            setSavedListOpen={setSavedListOpen}
+          />
+        )}
+        <Footer />
       </AppContainer>
       <GlobalStyle />
     </ThemeProvider>

@@ -2,7 +2,7 @@ import React from "react";
 import Select from "react-select";
 
 import ToolbarStyles from "./toolbar.styles";
-import { reset } from "ansi-colors";
+
 const TextModOptions = [
   { value: "sentence", label: "Sentence" },
   { value: "paragraph", label: "Paragraph" },
@@ -31,7 +31,6 @@ const Toolbar = ({
   listType,
   setListType
 }) => {
-  console.log(listType);
   return (
     <ToolbarStyles.Container
       className={toolbarFixedToTop ? "fixedToTop" : "independent"}

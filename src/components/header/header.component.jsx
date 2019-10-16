@@ -28,6 +28,7 @@ const Header = () => {
           <HeaderStyles.NavItem className="disabled">
             About
           </HeaderStyles.NavItem>
+          <HeaderStyles.Button>Login</HeaderStyles.Button>
         </HeaderStyles.NavList>
       </HeaderStyles.Nav>
     </HeaderStyles.Container>

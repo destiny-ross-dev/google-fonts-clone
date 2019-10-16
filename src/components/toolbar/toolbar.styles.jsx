@@ -3,8 +3,9 @@ import styled from "styled-components";
 const Container = styled.div`
   width: 1160px;
   height: 46px;
+  height: 56px;
   border-radius: 48px;
-  border: 1px solid ${props => props.theme.color};
+  border: ${props => props.theme.border};
   position: sticky;
   top: 0;
   margin: 24px;
@@ -14,8 +15,12 @@ const Container = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background:${props => props.theme.bg}
+  background: ${props => props.theme.bg};
+  transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
   &.fixedToTop {
+    height: 56px;
+
     width: 100%;
     border: none;
     border-radius: 0;

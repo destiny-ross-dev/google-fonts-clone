@@ -8,7 +8,8 @@ const Container = styled.header`
   align-items: center;
   margin: 0 auto;
   padding: 0 64px 0 60px;
-  border-bottom: 1px solid ${props => props.theme.color};
+  border-bottom: ${props => props.theme.border};
+  z-index: 12;
 `;
 
 const Logo = styled.h1`
@@ -50,8 +51,21 @@ const NavItem = styled.li`
 const NavList = styled.ul`
   display: flex;
   margin-left: auto;
+  align-items: center;
 `;
 
-const HeaderStyles = { Container, Logo, Nav, NavItem, NavList };
+const Button = styled.button`
+  background: ${props => props.theme.accent};
+  color: white;
+  padding: 8px 12px;
+  border-radius: 2px;
+  border: none;
+  margin-left: 24px;
+  :hover {
+    background: ${props => props.theme.dark};
+  }
+`;
+
+const HeaderStyles = { Container, Logo, Nav, NavItem, NavList, Button };
 
 export default HeaderStyles;
