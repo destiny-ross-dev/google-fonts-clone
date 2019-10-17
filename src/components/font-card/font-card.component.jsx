@@ -2,8 +2,7 @@ import React from "react";
 import Helmet from "react-helmet";
 import Card from "./font-card.styles";
 
-const FontCard = ({ displayText, fontSize, fontFamily, data }) => {
-  console.log(fontFamily);
+const FontCard = ({ displayText, fontSize, fontFamily, category }) => {
   return (
     <Card.Container fontSize={fontSize} fontFamily={fontFamily}>
       <Helmet>
@@ -16,6 +15,7 @@ const FontCard = ({ displayText, fontSize, fontFamily, data }) => {
         <h2>{fontFamily}</h2>
         <i className="fas fa-plus-circle"></i>
       </Card.TitleBar>
+      <Card.SubTitle>{category}</Card.SubTitle>
       <p>{displayText}</p>
     </Card.Container>
   );

@@ -7,8 +7,10 @@ const baseConfig = {
   secrets: {
     jwt: process.env.JWT_SECRET,
     jwtExp: "100d",
-    session: process.env.SESSION_SECRET
+    session: process.env.SESSION_SECRET,
+    gFontsKey: process.env.GOOGLE_FONTS_API_KEY
   },
+
   db: process.env.CONNECTION_STRING
 };
 

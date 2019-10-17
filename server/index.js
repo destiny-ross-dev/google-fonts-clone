@@ -5,6 +5,8 @@ const {
   globalMiddleware
   //connect
 } = require("./middleware");
+// const authRouter = require("./api/auth/auth.router");
+const fontsRouter = require("./api/fonts/fonts.router");
 
 // Initializes express server
 const app = express();
@@ -14,8 +16,11 @@ globalMiddleware(app);
 
 app.use("*", (req, res, next) => {
   console.log("hit");
-  res.status(200).json({ msg: "Fonts are Coming" });
+  next();
 });
+
+// app.use("/auth", authRouter);
+app.use("/fonts", fontsRouter);
 
 const start = async () => {
   console.log(config);

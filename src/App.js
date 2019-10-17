@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { ThemeProvider } from "styled-components";
+import axios from "axios";
 import Header from "./components/header/header.component";
 import Toolbar from "./components/toolbar/toolbar.component";
 import GlobalStyle, { AppContainer, ToTopButton } from "./App.styles";
-import FontList from "./components/font-list/font-list.component";
 import SavedList from "./components/saved-list/saved-list.component";
 import Footer from "./components/footer/footer.component";
+import Loader from "./components/loader/loader.component";
 
+const FontList = React.lazy(() =>
+  import("./components/font-list/font-list.component")
+);
 const lightTheme = {
   bg: "white",
   color: "rgba(0,0,0,.6)",
@@ -31,15 +35,24 @@ function App() {
   const [displayText, setDisplayText] = useState(
     "Sphinx of black quartz, judge my vow."
   );
+  const [searchQuery, setSearchQuery] = useState("");
   const [fontSize, setFontSize] = useState("32px");
   const [themeIsLight, setThemeIsLight] = useState(true);
   const [listType, setListType] = useState("grid");
-  const [savedListOpen, setSavedListOpen] = useState(true);
+  const [savedListOpen, setSavedListOpen] = useState(false);
   const [savedList, setSavedList] = useState([
     { family: "Open Sans", category: "sans-serif" },
     { family: "Roboto", category: "sans-serif" }
   ]);
-
+  const [token, setToken] = useState({});
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    const loadData = async () => {
+      const res = await axios.get("/fonts/init");
+      console.log(res);
+    };
+    loadData();
+  }, []);
   useEffect(() => {
     window.addEventListener("scroll", logScroll);
     window.scrollY >= 88 && setFixedToTop(true);
@@ -61,11 +74,19 @@ function App() {
     setThemeIsLight(true);
     setListType("grid");
   };
+
   return (
     <ThemeProvider theme={themeIsLight ? lightTheme : darkTheme}>
       <AppContainer>
-        <Header />
+        <Header
+          user={user}
+          setUser={setUser}
+          token={token}
+          setToken={setToken}
+        />
         <Toolbar
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
           toolbarFixedToTop={toolbarFixedToTop}
           displayTextType={displayTextType}
           setDisplayTextType={setDisplayTextType}
@@ -79,16 +100,22 @@ function App() {
           listType={listType}
           setListType={setListType}
         />
-        <FontList displayText={displayText} fontSize={fontSize} />
-        {displayToTop && (
-          <ToTopButton
-            onClick={() =>
-              window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
-            }
-          >
-            <i className="fas fa-arrow-up"></i>
-          </ToTopButton>
-        )}
+        <Suspense fallback={<Loader />}>
+          <FontList
+            displayText={displayText}
+            fontSize={fontSize}
+            searchQuery={searchQuery}
+          />
+          {displayToTop && (
+            <ToTopButton
+              onClick={() =>
+                window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
+              }
+            >
+              <i className="fas fa-arrow-up"></i>
+            </ToTopButton>
+          )}
+        </Suspense>
         {savedList.length >= 1 && (
           <SavedList
             savedList={savedList}

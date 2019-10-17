@@ -29,7 +29,9 @@ const Toolbar = ({
   themeIsLight,
   setThemeIsLight,
   listType,
-  setListType
+  setListType,
+  searchQuery,
+  setSearchQuery
 }) => {
   return (
     <ToolbarStyles.Container
@@ -37,7 +39,11 @@ const Toolbar = ({
     >
       <ToolbarStyles.SearchContainer>
         <i className="fal fa-search"></i>
-        <input placeholder="Search Fonts" />
+        <input
+          placeholder="Search Fonts"
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+        />
       </ToolbarStyles.SearchContainer>
       <ToolbarStyles.TextModContainer title="Update preview text">
         <Select

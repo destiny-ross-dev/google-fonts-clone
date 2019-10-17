@@ -4,11 +4,10 @@ const Container = styled.footer`
   position: fixed;
   width: 50px;
   height: calc(100vh - 64px);
-  right: 0;
   display: flex;
   justify-content: center;
-  padding: 0px 0 20px 0;
   align-items: center;
+  right: 0;
   bottom: 0;
   writing-mode: vertical-rl;
   text-orientation: mixed;

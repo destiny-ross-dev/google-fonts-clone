@@ -54,18 +54,47 @@ const NavList = styled.ul`
   align-items: center;
 `;
 
-const Button = styled.button`
-  background: ${props => props.theme.accent};
+const ButtonContainer = styled.div`
+  /* background: ${props => props.theme.accent};
   color: white;
   padding: 8px 12px;
   border-radius: 2px;
-  border: none;
+  border: none; */
   margin-left: 24px;
   :hover {
-    background: ${props => props.theme.dark};
+    /* background: ${props => props.theme.dark}; */
   }
 `;
+const Button = styled.button`
+  padding: 10px;
+  background: white;
+  box-shadow: ${props => props.theme.bs};
+  border: ${props => props.theme.border};
+  display: flex;
+  align-items: center;
+  transition: all 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  cursor: pointer;
+  :focus {
+    outline-color: ${props => props.theme.dark};
+    border: none;
+  }
+  :hover {
+    background: #fafafa;
+  }
 
-const HeaderStyles = { Container, Logo, Nav, NavItem, NavList, Button };
+  img {
+    margin-right: 6px;
+    height: 14px;
+  }
+`;
+const HeaderStyles = {
+  Container,
+  Logo,
+  Nav,
+  NavItem,
+  NavList,
+  ButtonContainer,
+  Button
+};
 
 export default HeaderStyles;

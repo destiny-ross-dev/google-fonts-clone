@@ -5,6 +5,12 @@ const Container = styled.div`
   flex-wrap: wrap;
   z-index: 1;
   padding: 0 64px;
+  & h2 {
+    width: 100%;
+    & span {
+      color: ${props => props.theme.accent};
+    }
+  }
 `;
 
 const FontListStyles = {

@@ -45,9 +45,12 @@ const TitleBar = styled.div`
   }
 `;
 
+const SubTitle = styled.h3``;
+
 const Card = {
   Container,
-  TitleBar
+  TitleBar,
+  SubTitle
 };
 
 export default Card;

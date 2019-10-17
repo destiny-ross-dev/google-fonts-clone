@@ -1,7 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HeaderStyles from "./header.styles";
+import { GoogleLogin } from "react-google-login";
+import { GoogleLogout } from "react-google-login";
+import googleLogo from "../../googleLogo.png";
 
-const Header = () => {
+const Header = ({
+  setLogInOpen,
+  logInOpen,
+  user,
+  setUser,
+  token,
+  setToken
+}) => {
+  const responseGoogle = response => {
+    console.log(response);
+    setUser(response.profileObj);
+    setToken(response.tokenObj);
+  };
+
+  const logout = response => {
+    console.log("log out", response);
+    setUser({});
+    setToken({});
+  };
   return (
     <HeaderStyles.Container>
       <HeaderStyles.Logo>
@@ -28,7 +49,42 @@ const Header = () => {
           <HeaderStyles.NavItem className="disabled">
             About
           </HeaderStyles.NavItem>
-          <HeaderStyles.Button>Login</HeaderStyles.Button>
+          <HeaderStyles.ButtonContainer>
+            {!user.googleId ? (
+              <GoogleLogin
+                clientId="513280164412-gjicu0r2juv75ijksusouqt75kqvgnrh.apps.googleusercontent.com"
+                buttonText="Login With Google"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={"single_host_origin"}
+                theme="dark"
+                style={{ background: "#ff5252" }}
+                render={renderProps => (
+                  <HeaderStyles.Button
+                    onClick={renderProps.onClick}
+                    disabled={renderProps.disabled}
+                  >
+                    <img src={googleLogo} alt="Google logo" /> Login With Google
+                  </HeaderStyles.Button>
+                )}
+                // icon={false}
+              />
+            ) : (
+              <GoogleLogout
+                clientId="513280164412-gjicu0r2juv75ijksusouqt75kqvgnrh.apps.googleusercontent.com"
+                buttonText="Logout"
+                onLogoutSuccess={logout}
+                render={renderProps => (
+                  <HeaderStyles.Button
+                    onClick={renderProps.onClick}
+                    disabled={renderProps.disabled}
+                  >
+                    <img src={googleLogo} alt="Google logo" /> Logout
+                  </HeaderStyles.Button>
+                )}
+              ></GoogleLogout>
+            )}
+          </HeaderStyles.ButtonContainer>
         </HeaderStyles.NavList>
       </HeaderStyles.Nav>
     </HeaderStyles.Container>
