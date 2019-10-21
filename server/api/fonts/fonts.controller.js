@@ -10,12 +10,12 @@ const apiCall = async () => {
   fonts = res.data.items;
 };
 
-const getAll = async (req, res, next) => {
-  apiCall();
+// const getAll = async (req, res, next) => {
+//   apiCall();
 
-  // fonts = fontsList.data.items;
-  res.status(200).json({ msg: "loaded" });
-};
+//   // fonts = fontsList.data.items;
+//   res.status(200).json({ msg: "loaded" });
+// };
 
 const getPage = async (req, res) => {
   let { offset } = req.query;
@@ -32,9 +32,11 @@ const getPage = async (req, res) => {
   res.status(200).json(arr);
 };
 
-const filterByName = (req, res) => {
+const filterByName = async (req, res) => {
   let { name } = req.query;
-
+  if (fonts.length === 0) {
+    await apiCall();
+  }
   let resArr = fonts.filter(font =>
     font.family.toLowerCase().includes(name.toLowerCase())
   );
@@ -42,4 +44,8 @@ const filterByName = (req, res) => {
   res.status(200).json(resArr);
 };
 
-module.exports = { getAll, getPage, filterByName };
+module.exports = {
+  //  getAll,
+  getPage,
+  filterByName
+};
