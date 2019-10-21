@@ -5,6 +5,7 @@ const Container = styled.div`
   flex-wrap: wrap;
   z-index: 1;
   padding: 0 64px;
+  margin: 0 auto;
   & h2 {
     width: 100%;
     & span {

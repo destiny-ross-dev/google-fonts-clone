@@ -5,6 +5,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 200px;
+  margin: 0 auto;
 
   .ball {
     width: 22px;

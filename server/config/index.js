@@ -3,7 +3,7 @@ const env = process.env.NODE_ENV || "dev";
 
 const baseConfig = {
   env,
-  port: process.env.PORT || 4567,
+  port: process.env.PORT || 4568,
   secrets: {
     jwt: process.env.JWT_SECRET,
     jwtExp: "100d",

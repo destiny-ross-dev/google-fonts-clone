@@ -9,6 +9,8 @@ const FontCard = ({ displayText, fontSize, fontFamily, category }) => {
         <link
           href={`https://fonts.googleapis.com/css?family=${fontFamily}&display=swap"`}
           rel="stylesheet"
+          media="none"
+          onload="if(media!='all')media='all'"
         />
       </Helmet>
       <Card.TitleBar>
@@ -16,7 +18,9 @@ const FontCard = ({ displayText, fontSize, fontFamily, category }) => {
         <i className="fas fa-plus-circle"></i>
       </Card.TitleBar>
       <Card.SubTitle>{category}</Card.SubTitle>
-      <p>{displayText}</p>
+      <p style={{ fontFamily: fontFamily, fontSize: fontSize }}>
+        {displayText}
+      </p>
     </Card.Container>
   );
 };

@@ -5,8 +5,7 @@ const Container = styled.div`
   border: 1px solid ${props => props.theme.border};
   padding: 24px;
   min-width: 300px;
-  max-width: 320px;
-  width: 320px;
+  max-width: 480px;
   min-height: 120px;
   margin: 24px;
   flex: 1;
@@ -21,8 +20,6 @@ const Container = styled.div`
   }
   p {
     font-size: ${props => props.fontSize};
-    line-height: ${props => props.fontSize}*.2;
-    font-family: ${props => props.fontFamily};
   }
 `;
 

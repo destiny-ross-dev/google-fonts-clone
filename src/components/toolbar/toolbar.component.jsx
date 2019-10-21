@@ -31,7 +31,8 @@ const Toolbar = ({
   listType,
   setListType,
   searchQuery,
-  setSearchQuery
+  setSearchQuery,
+  onSearchSubmit
 }) => {
   return (
     <ToolbarStyles.Container
@@ -42,8 +43,9 @@ const Toolbar = ({
         <input
           placeholder="Search Fonts"
           value={searchQuery}
-          onChange={e => setSearchQuery(e.target.value)}
+          onChange={e => setSearchQuery(e)}
         />
+        <button onClick={() => onSearchSubmit()}>Submit</button>
       </ToolbarStyles.SearchContainer>
       <ToolbarStyles.TextModContainer title="Update preview text">
         <Select

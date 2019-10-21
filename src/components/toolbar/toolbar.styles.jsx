@@ -16,11 +16,10 @@ const Container = styled.div`
   justify-content: flex-start;
   align-items: center;
   background: ${props => props.theme.bg};
-  transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   &.fixedToTop {
     height: 56px;
-
     width: 100%;
     border: none;
     border-radius: 0;
@@ -38,9 +37,11 @@ const SearchContainer = styled.div`
   }
   & input {
     border: none;
-    width: 250px;
+    width: 150px;
     height: 100%;
     background: none;
+    padding: 4px 8px;
+
     color: ${props => props.theme.color};
 
     ::placeholder {
@@ -59,6 +60,27 @@ const SearchContainer = styled.div`
       color: ${props => props.theme.color};
     }
   }
+
+  & button {
+    padding: 10px;
+    background: ${props => props.theme.accent};
+    box-shadow: ${props => props.theme.bs};
+    border: ${props => props.theme.border};
+    color: white;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    margin: 0 12px;
+    cursor: pointer;
+    :focus {
+      outline-color: ${props => props.theme.dark};
+      border: none;
+    }
+    :hover {
+      background: #fafafa;
+      color: ${props => props.theme.accent};
+    }
+  }
 `;
 
 const TextModContainer = styled.div`
@@ -72,7 +94,7 @@ const TextModContainer = styled.div`
     background: none;
     border: none;
     border-bottom: 1px solid ${props => props.theme.color};
-    padding: 4px 0;
+    padding: 4px 8px;
     width: 300px;
     color: ${props => props.theme.color};
   }

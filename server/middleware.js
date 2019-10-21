@@ -17,7 +17,7 @@ const globalMiddleware = app => {
   app.use(cors());
 
   //Logging middleware for request and response bodies
-  logger(app);
+  // logger(app);
 };
 
 module.exports = { globalMiddleware };

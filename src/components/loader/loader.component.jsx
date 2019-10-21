@@ -4,10 +4,10 @@ import LoaderStyles from "./loader.styles";
 const Loader = () => {
   return (
     <LoaderStyles.Wrapper>
-      <div class="blue ball"></div>
-      <div class="red ball"></div>
-      <div class="yellow ball"></div>
-      <div class="green ball"></div>
+      <div className="blue ball"></div>
+      <div className="red ball"></div>
+      <div className="yellow ball"></div>
+      <div className="green ball"></div>
     </LoaderStyles.Wrapper>
   );
 };

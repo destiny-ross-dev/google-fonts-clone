@@ -17,6 +17,11 @@ const Container = styled.footer`
   }
   a {
     margin: 10px 0;
+    color: ${props => props.theme.accent};
+    text-decoration: underline;
+    :visited {
+      color: ${props => props.theme.dark};
+    }
   }
 `;
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import HeaderStyles from "./header.styles";
 import { GoogleLogin } from "react-google-login";
 import { GoogleLogout } from "react-google-login";

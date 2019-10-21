@@ -8,6 +8,7 @@ import SavedList from "./components/saved-list/saved-list.component";
 import Footer from "./components/footer/footer.component";
 import Loader from "./components/loader/loader.component";
 
+import { LOAD_ON_INIT } from "./config";
 const FontList = React.lazy(() =>
   import("./components/font-list/font-list.component")
 );
@@ -29,14 +30,21 @@ const darkTheme = {
 };
 
 function App() {
+  // data & list related
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // layout
   const [displayToTop, setDisplayToTop] = useState(false);
   const [toolbarFixedToTop, setFixedToTop] = useState(false);
+
+  // display text
   const [displayTextType, setDisplayTextType] = useState("sentence");
   const [displayText, setDisplayText] = useState(
     "Sphinx of black quartz, judge my vow."
   );
-  const [searchQuery, setSearchQuery] = useState("");
   const [fontSize, setFontSize] = useState("32px");
+
   const [themeIsLight, setThemeIsLight] = useState(true);
   const [listType, setListType] = useState("grid");
   const [savedListOpen, setSavedListOpen] = useState(false);
@@ -46,21 +54,41 @@ function App() {
   ]);
   const [token, setToken] = useState({});
   const [user, setUser] = useState({});
+
+  // Sends initial request to server to request fonts from gfdevapi
   useEffect(() => {
     const loadData = async () => {
       const res = await axios.get("/fonts/init");
-      console.log(res);
+      console.log(res.data.msg);
+      setDataLoaded(true);
     };
     loadData();
   }, []);
+
+  // Gets
+  const [offset, setOffset] = useState(LOAD_ON_INIT);
+  const [listData, setListData] = useState([]);
   useEffect(() => {
-    window.addEventListener("scroll", logScroll);
-    window.scrollY >= 88 && setFixedToTop(true);
-    window.scrollY <= 88 && setFixedToTop(false);
+    const getPage = async () => {
+      const res = await axios.get(`/fonts?offset=${offset}`);
+      console.log(res.data.length, res.data);
+      setListData(listData => [...listData, ...res.data]);
+    };
+    getPage();
+  }, [offset]);
+
+  const handleSearch = async () => {
+    const newList = await axios.get(`/fonts/search?name=${searchQuery}`);
+    console.log(newList);
+    setListData(newList.data);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", scroll);
     window.scrollY >= 88 && setFixedToTop(true);
     window.scrollY <= 88 && setFixedToTop(false);
   }, []);
-  const logScroll = event => {
+  const scroll = event => {
     window.scrollY < 120 && setDisplayToTop(false);
     window.scrollY >= 120 && setDisplayToTop(true);
     window.scrollY >= 88 && setFixedToTop(true);
@@ -75,6 +103,15 @@ function App() {
     setListType("grid");
   };
 
+  const handleSearchInput = async e => {
+    setSearchQuery(e.target.value);
+    if (e.target.value.length === 0) {
+      const res = await axios.get(`/fonts?offset=${LOAD_ON_INIT}`);
+      console.log(res.data);
+      setListData(res.data);
+    }
+  };
+
   return (
     <ThemeProvider theme={themeIsLight ? lightTheme : darkTheme}>
       <AppContainer>
@@ -86,7 +123,8 @@ function App() {
         />
         <Toolbar
           searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
+          setSearchQuery={handleSearchInput}
+          onSearchSubmit={handleSearch}
           toolbarFixedToTop={toolbarFixedToTop}
           displayTextType={displayTextType}
           setDisplayTextType={setDisplayTextType}
@@ -105,7 +143,12 @@ function App() {
             displayText={displayText}
             fontSize={fontSize}
             searchQuery={searchQuery}
+            dataLoaded={dataLoaded}
+            offset={offset}
+            setOffset={setOffset}
+            data={listData}
           />
+
           {displayToTop && (
             <ToTopButton
               onClick={() =>
