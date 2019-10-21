@@ -55,7 +55,7 @@ function App() {
   const [token, setToken] = useState({});
   const [user, setUser] = useState({});
 
-  // Sends initial request to server to request fonts from gfdevapi
+  // Sends initial request to server to request fonts from api
   useEffect(() => {
     const loadData = async () => {
       const res = await axios.get("/fonts/init");
@@ -65,7 +65,6 @@ function App() {
     loadData();
   }, []);
 
-  // Gets
   const [offset, setOffset] = useState(LOAD_ON_INIT);
   const [listData, setListData] = useState([]);
   useEffect(() => {
@@ -87,6 +86,7 @@ function App() {
     window.addEventListener("scroll", scroll);
     window.scrollY >= 88 && setFixedToTop(true);
     window.scrollY <= 88 && setFixedToTop(false);
+    return () => window.removeEventListener("scroll", scroll);
   }, []);
   const scroll = event => {
     window.scrollY < 120 && setDisplayToTop(false);

@@ -19,7 +19,6 @@ const Container = styled.div`
   h2 {
   }
   p {
-    font-size: ${props => props.fontSize};
   }
 `;
 

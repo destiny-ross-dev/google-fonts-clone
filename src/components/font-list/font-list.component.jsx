@@ -23,10 +23,8 @@ const FontList = ({
       }
     };
 
-    console.log({ searchQuery }, searchQuery.length);
     window.addEventListener("scroll", loadMore);
     return () => {
-      console.log("removing");
       window.removeEventListener("scroll", loadMore);
     };
   }, [searchQuery, offset, setOffset]);
