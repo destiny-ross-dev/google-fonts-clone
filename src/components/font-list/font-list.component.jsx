@@ -4,7 +4,6 @@ import Loader from "../loader/loader.component";
 import { LOAD_ON_SCROLL } from "../../config";
 
 const FontCard = React.lazy(() => import("../font-card/font-card.component"));
-// import FontCard from "../font-card/font-card.component";
 const FontList = ({
   data,
   displayText,
@@ -17,6 +16,7 @@ const FontList = ({
     const loadMore = () => {
       if (searchQuery !== "") {
         setOffset(LOAD_ON_SCROLL);
+        return;
       }
       if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
         setOffset(offset + LOAD_ON_SCROLL);

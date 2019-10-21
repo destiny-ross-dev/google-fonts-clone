@@ -3,22 +3,26 @@ const config = require("../../config");
 
 let fonts = [];
 
-const getAll = async (req, res) => {
-  console.log(config);
-
-  const fontsList = await axios.get(
+const apiCall = async () => {
+  const res = await axios.get(
     `https://www.googleapis.com/webfonts/v1/webfonts?key=${config.secrets.gFontsKey}&sort=popularity`
   );
-  // console.log(fontsList.data.items);
+  fonts = res.data.items;
+};
 
-  fonts = fontsList.data.items;
+const getAll = async (req, res, next) => {
+  apiCall();
+
+  // fonts = fontsList.data.items;
   res.status(200).json({ msg: "loaded" });
 };
 
-const getPage = (req, res) => {
+const getPage = async (req, res) => {
   let { offset } = req.query;
 
-  console.log(offset);
+  if (fonts.length === 0) {
+    await apiCall();
+  }
 
   let arr = [];
   for (let i = offset - 12; i < offset; i++) {

@@ -56,14 +56,14 @@ function App() {
   const [user, setUser] = useState({});
 
   // Sends initial request to server to request fonts from api
-  useEffect(() => {
-    const loadData = async () => {
-      const res = await axios.get("/fonts/init");
-      console.log(res.data.msg);
-      setDataLoaded(true);
-    };
-    loadData();
-  }, []);
+  // useEffect(() => {
+  //   const loadData = async () => {
+  //     const res = await axios.get("/fonts/init");
+  //     console.log(res.data.msg);
+  //     setDataLoaded(true);
+  //   };
+  //   loadData();
+  // }, []);
 
   const [offset, setOffset] = useState(LOAD_ON_INIT);
   const [listData, setListData] = useState([]);
@@ -148,7 +148,6 @@ function App() {
             setOffset={setOffset}
             data={listData}
           />
-
           {displayToTop && (
             <ToTopButton
               onClick={() =>
@@ -159,6 +158,7 @@ function App() {
             </ToTopButton>
           )}
         </Suspense>
+
         {savedList.length >= 1 && (
           <SavedList
             savedList={savedList}
