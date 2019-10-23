@@ -1,12 +1,18 @@
 import React, { useState, useEffect, Suspense } from "react";
-import { ThemeProvider } from "styled-components";
 import axios from "axios";
+import { ThemeProvider } from "styled-components";
+import { Switch, Route } from "react-router-dom";
 import Header from "./components/header/header.component";
 import Toolbar from "./components/toolbar/toolbar.component";
-import GlobalStyle, { AppContainer, ToTopButton } from "./App.styles";
+import GlobalStyle, {
+  AppContainer,
+  AppContent,
+  ToTopButton
+} from "./App.styles";
 import SavedList from "./components/saved-list/saved-list.component";
 import Footer from "./components/footer/footer.component";
 import Loader from "./components/loader/loader.component";
+import ErrorPage from "./components/error/error";
 
 import { LOAD_ON_INIT } from "./config";
 const FontList = React.lazy(() =>
@@ -124,53 +130,65 @@ function App() {
           token={token}
           setToken={setToken}
         />
-        <Toolbar
-          searchQuery={searchQuery}
-          setSearchQuery={handleSearchInput}
-          onSearchSubmit={handleSearch}
-          toolbarFixedToTop={toolbarFixedToTop}
-          displayTextType={displayTextType}
-          setDisplayTextType={setDisplayTextType}
-          displayText={displayText}
-          setDisplayText={setDisplayText}
-          fontSize={fontSize}
-          setFontSize={setFontSize}
-          reset={reset}
-          themeIsLight={themeIsLight}
-          setThemeIsLight={setThemeIsLight}
-          listType={listType}
-          setListType={setListType}
-        />
-        <Suspense fallback={<Loader />}>
-          <FontList
-            displayText={displayText}
-            fontSize={fontSize}
-            searchQuery={searchQuery}
-            dataLoaded={dataLoaded}
-            offset={offset}
-            setOffset={setOffset}
-            data={listData}
-            savedList={savedList}
-          />
-          {displayToTop && (
-            <ToTopButton
-              onClick={() =>
-                window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
-              }
-            >
-              <i className="fas fa-arrow-up"></i>
-            </ToTopButton>
-          )}
-        </Suspense>
 
-        {savedList.length >= 1 && (
-          <SavedList
-            savedList={savedList}
-            setSavedList={setSavedList}
-            savedListOpen={savedListOpen}
-            setSavedListOpen={setSavedListOpen}
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={props => (
+              <AppContent>
+                <Toolbar
+                  searchQuery={searchQuery}
+                  setSearchQuery={handleSearchInput}
+                  onSearchSubmit={handleSearch}
+                  toolbarFixedToTop={toolbarFixedToTop}
+                  displayTextType={displayTextType}
+                  setDisplayTextType={setDisplayTextType}
+                  displayText={displayText}
+                  setDisplayText={setDisplayText}
+                  fontSize={fontSize}
+                  setFontSize={setFontSize}
+                  reset={reset}
+                  themeIsLight={themeIsLight}
+                  setThemeIsLight={setThemeIsLight}
+                  listType={listType}
+                  setListType={setListType}
+                />
+                <Suspense fallback={<Loader />}>
+                  <FontList
+                    displayText={displayText}
+                    fontSize={fontSize}
+                    searchQuery={searchQuery}
+                    dataLoaded={dataLoaded}
+                    offset={offset}
+                    setOffset={setOffset}
+                    data={listData}
+                    savedList={savedList}
+                  />
+                  {displayToTop && (
+                    <ToTopButton
+                      onClick={() =>
+                        window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
+                      }
+                    >
+                      <i className="fas fa-arrow-up"></i>
+                    </ToTopButton>
+                  )}
+                </Suspense>
+
+                {savedList.length >= 1 && (
+                  <SavedList
+                    savedList={savedList}
+                    setSavedList={setSavedList}
+                    savedListOpen={savedListOpen}
+                    setSavedListOpen={setSavedListOpen}
+                  />
+                )}
+              </AppContent>
+            )}
           />
-        )}
+          <Route component={ErrorPage} />
+        </Switch>
         <Footer />
       </AppContainer>
       <GlobalStyle />

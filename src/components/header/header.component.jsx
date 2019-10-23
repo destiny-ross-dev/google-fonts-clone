@@ -3,6 +3,7 @@ import HeaderStyles from "./header.styles";
 import { GoogleLogin } from "react-google-login";
 import { GoogleLogout } from "react-google-login";
 import googleLogo from "../../googleLogo.png";
+import { Link } from "react-router-dom";
 
 const Header = ({
   setLogInOpen,
@@ -25,28 +26,33 @@ const Header = ({
   };
   return (
     <HeaderStyles.Container>
-      <HeaderStyles.Logo>
-        <span className="blue">G</span>
-        <span className="red">o</span>
-        <span className="yellow">o</span>
-        <span className="blue">g</span>
-        <span className="green">l</span>
-        <span className="red">e</span> Fonts
-      </HeaderStyles.Logo>
+      <Link to="/">
+        <HeaderStyles.Logo>
+          <span className="blue">G</span>
+          <span className="red">o</span>
+          <span className="yellow">o</span>
+          <span className="blue">g</span>
+          <span className="green">l</span>
+          <span className="red">e</span>
+          <span className="grey"> Fonts</span>
+        </HeaderStyles.Logo>
+      </Link>
       <HeaderStyles.Nav>
         <HeaderStyles.NavList>
-          {/* TODO: Include rrd and convert these to NavLinks, 
-        not necessary until adding saved/favorited font page */}
           <HeaderStyles.NavItem className="active">
             Catalog
           </HeaderStyles.NavItem>
-          <HeaderStyles.NavItem className="disabled" title="Coming soon">
+          <HeaderStyles.NavItem
+            to="/featured"
+            className="disabled"
+            title="Coming soon"
+          >
             Featured
           </HeaderStyles.NavItem>
-          <HeaderStyles.NavItem className="disabled">
+          <HeaderStyles.NavItem to="/articles" className="disabled">
             Articles
           </HeaderStyles.NavItem>
-          <HeaderStyles.NavItem className="disabled">
+          <HeaderStyles.NavItem to="/about" className="disabled">
             About
           </HeaderStyles.NavItem>
           <HeaderStyles.ButtonContainer>
