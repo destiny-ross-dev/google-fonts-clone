@@ -95,12 +95,15 @@ function App() {
     window.scrollY <= 88 && setFixedToTop(false);
   };
 
-  const reset = () => {
+  const reset = async () => {
     setDisplayTextType("sentence");
     setDisplayText("Sphinx of black quartz, judge my vow.");
     setFontSize("32px");
     setThemeIsLight(true);
     setListType("grid");
+    setSearchQuery("");
+    const res = await axios.get(`/fonts?offset=${LOAD_ON_INIT}`);
+    setListData(res.data);
   };
 
   const handleSearchInput = async e => {
@@ -147,6 +150,7 @@ function App() {
             offset={offset}
             setOffset={setOffset}
             data={listData}
+            savedList={savedList}
           />
           {displayToTop && (
             <ToTopButton

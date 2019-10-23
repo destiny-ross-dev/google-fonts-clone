@@ -2,7 +2,7 @@ import React from "react";
 import Helmet from "react-helmet";
 import Card from "./font-card.styles";
 
-const FontCard = ({ displayText, fontSize, fontFamily, category }) => {
+const FontCard = ({ displayText, fontSize, fontFamily, category, saved }) => {
   const arr300 = ["Open Sans Condensed", "Sunflower"];
   let search = fontFamily.split(" ").join("+");
   if (arr300.includes(fontFamily)) {
@@ -29,7 +29,11 @@ const FontCard = ({ displayText, fontSize, fontFamily, category }) => {
       </Helmet>
       <Card.TitleBar>
         <h2>{fontFamily}</h2>
-        <i className="fas fa-plus-circle"></i>
+        {saved ? (
+          <i className="fas fa-minus-circle" title="Remove from saved list"></i>
+        ) : (
+          <i className="fas fa-plus-circle" title="Add to saved list"></i>
+        )}
       </Card.TitleBar>
       <Card.SubTitle>{category}</Card.SubTitle>
       <p style={{ fontFamily: `${fontFamily}, ${backup}`, fontSize: fontSize }}>

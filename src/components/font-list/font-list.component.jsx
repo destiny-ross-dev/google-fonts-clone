@@ -10,7 +10,8 @@ const FontList = ({
   fontSize,
   searchQuery,
   setOffset,
-  offset
+  offset,
+  savedList
 }) => {
   useEffect(() => {
     const loadMore = () => {
@@ -40,6 +41,7 @@ const FontList = ({
         {data.map((e, i) => {
           return (
             <FontCard
+              saved={savedList.some(font => font.family === e.family)}
               key={i}
               displayText={displayText}
               fontSize={fontSize}
