@@ -21,6 +21,9 @@ const Container = styled.section`
     width: 95%;
     margin: 12px auto;
   }
+  p {
+    word-wrap: break-word;
+  }
 `;
 
 const TitleBar = styled.div`

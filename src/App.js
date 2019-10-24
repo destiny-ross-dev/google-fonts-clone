@@ -61,15 +61,21 @@ function App() {
   const [token, setToken] = useState({});
   const [user, setUser] = useState({});
 
-  // Sends initial request to server to request fonts from api
-  // useEffect(() => {
-  //   const loadData = async () => {
-  //     const res = await axios.get("/fonts/init");
-  //     console.log(res.data.msg);
-  //     setDataLoaded(true);
-  //   };
-  //   loadData();
-  // }, []);
+  const handleTextUpdate = type => {
+    const initialStates = {
+      sentence: "Sphinx of black quartz, judge my vow.",
+      alphabet:
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ‘?’“!”(%)[#]{@}/&<-+÷×=>®©$€£¥¢:;,.*",
+      paragraph:
+        "Though the gravity still dragged at him, his muscles were making great efforts to adjust. After the daily classes he no longer collapsed immediately into bed. Only the nightmares got worse.",
+      numerical: "1234567890",
+      custom: ""
+    };
+    console.log({ type });
+    setDisplayTextType(type);
+    console.log({ displayText: initialStates[type] });
+    setDisplayText(initialStates[type]);
+  };
 
   const [offset, setOffset] = useState(LOAD_ON_INIT);
   const [listData, setListData] = useState([]);
@@ -153,6 +159,7 @@ function App() {
                   setThemeIsLight={setThemeIsLight}
                   listType={listType}
                   setListType={setListType}
+                  handleTextUpdate={handleTextUpdate}
                 />
                 <Suspense fallback={<Loader />}>
                   <FontList

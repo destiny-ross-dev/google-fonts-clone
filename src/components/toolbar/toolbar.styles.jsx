@@ -19,7 +19,7 @@ const Container = styled.div`
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   @media (max-width: 640px) {
     width: 90%;
-    margin: 24px auto;
+    margin: 24px 0;
   }
   &.fixedToTop {
     height: 56px;
@@ -28,7 +28,8 @@ const Container = styled.div`
     border-radius: 0;
     border-bottom: ${props => props.theme.border};
     z-index: 10;
-    padding: 0 64px;
+    padding: 0 96px;
+    margin: 0 0;
     @media (max-width: 640px) {
       padding: 0 0;
     }
@@ -108,7 +109,7 @@ const TextModContainer = styled.div`
     border: none;
     border-bottom: 1px solid ${props => props.theme.color};
     padding: 4px 8px;
-    width: 300px;
+    width: 250px;
     color: ${props => props.theme.color};
   }
 
@@ -241,7 +242,7 @@ const ResetContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 12px;
+  margin: 0 12px;
   @media (max-width: 640px) {
     margin-right: 16px;
   }
