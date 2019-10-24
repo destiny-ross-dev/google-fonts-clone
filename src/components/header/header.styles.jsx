@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Container = styled.header`
   height: 64px;
-  width: 100%;
+  width: 100vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,9 +11,17 @@ const Container = styled.header`
   padding: 0 64px 0 60px;
   border-bottom: ${props => props.theme.border};
   z-index: 12;
+
+  a {
+    color: unset;
+  }
+  @media (max-width: 640px) {
+    padding: 0 0;
+    justify-content: center;
+  }
 `;
 
-const Logo = styled.h1`
+export const Logo = styled.h1`
   font-size: 22px;
   cursor: pointer;
   text-shadow: rgba(0, 0, 0, 0.14);
@@ -28,14 +37,24 @@ const Logo = styled.h1`
   & span.green {
     color: #34a853;
   }
+  & span.grey {
+    color: ${props => props.theme.border};
+    text-decoration: none;
+  }
+  @media (max-width: 640px) {
+    margin: 0 auto;
+  }
 `;
 
 const Nav = styled.nav`
   width: 1000px;
   display: flex;
   align-items: center;
+  @media (max-width: 640px) {
+    display: none;
+  }
 `;
-const NavItem = styled.li`
+const NavItem = styled(Link)`
   font-family: "Roboto";
   text-transform: uppercase;
   list-style: none;
@@ -52,6 +71,9 @@ const NavList = styled.ul`
   display: flex;
   margin-left: auto;
   align-items: center;
+  @media (max-width: 640px) {
+    display: none;
+  }
 `;
 
 const ButtonContainer = styled.div`

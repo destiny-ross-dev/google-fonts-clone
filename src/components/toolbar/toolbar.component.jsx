@@ -32,7 +32,8 @@ const Toolbar = ({
   setListType,
   searchQuery,
   setSearchQuery,
-  onSearchSubmit
+  onSearchSubmit,
+  handleTextUpdate
 }) => {
   return (
     <ToolbarStyles.Container
@@ -50,7 +51,7 @@ const Toolbar = ({
       <ToolbarStyles.TextModContainer title="Update preview text">
         <Select
           classNamePrefix="react-select"
-          onChange={e => setDisplayTextType(e.value)}
+          onChange={e => handleTextUpdate(e.value)}
           defaultValue={{
             value: displayTextType,
             label:

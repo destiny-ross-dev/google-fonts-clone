@@ -12,6 +12,10 @@ const Container = styled.div`
       color: ${props => props.theme.accent};
     }
   }
+  @media (max-width: 640px) {
+    flex-direction: column;
+    padding: 0 12px 0 12px;
+  }
 `;
 
 const FontListStyles = {

@@ -13,6 +13,10 @@ const Container = styled.div`
   bottom: 0;
   z-index: 5;
   box-shadow: ${props => props.theme.bs};
+
+  @media (max-width: 640px) {
+    display: none;
+  }
 `;
 const Header = styled.div`
   height: 45px;

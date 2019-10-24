@@ -8,6 +8,7 @@ const apiCall = async () => {
     `https://www.googleapis.com/webfonts/v1/webfonts?key=${config.secrets.gFontsKey}&sort=popularity`
   );
   fonts = res.data.items;
+
 };
 
 const getAll = async (req, res, next) => {
@@ -20,7 +21,9 @@ const getAll = async (req, res, next) => {
 const getPage = async (req, res) => {
   let { offset } = req.query;
 
-  console.log(offset);
+  if (fonts.length === 0) {
+    await apiCall();
+  }
 
   if (fonts.length === 0) {
     await apiCall();
@@ -34,9 +37,11 @@ const getPage = async (req, res) => {
   res.status(200).json(arr);
 };
 
-const filterByName = (req, res) => {
+const filterByName = async (req, res) => {
   let { name } = req.query;
-
+  if (fonts.length === 0) {
+    await apiCall();
+  }
   let resArr = fonts.filter(font =>
     font.family.toLowerCase().includes(name.toLowerCase())
   );
@@ -44,4 +49,8 @@ const filterByName = (req, res) => {
   res.status(200).json(resArr);
 };
 
-module.exports = { getAll, getPage, filterByName };
+module.exports = {
+  //  getAll,
+  getPage,
+  filterByName
+};

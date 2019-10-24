@@ -4,7 +4,6 @@ import Loader from "../loader/loader.component";
 import { LOAD_ON_SCROLL, LOAD_ON_INIT } from "../../config";
 
 const FontCard = React.lazy(() => import("../font-card/font-card.component"));
-// import FontCard from "../font-card/font-card.component";
 const FontList = ({
   data,
   displayText,
@@ -29,6 +28,7 @@ const FontList = ({
 
     window.addEventListener("scroll", loadMore);
     return () => {
+      setOffset(LOAD_ON_INIT);
       window.removeEventListener("scroll", loadMore);
     };
   }, [searchQuery, offset, setOffset]);
@@ -43,6 +43,7 @@ const FontList = ({
         {data.map((e, i) => {
           return (
             <FontCard
+              saved={savedList.some(font => font.family === e.family)}
               key={i}
               displayText={displayText}
               fontSize={fontSize}

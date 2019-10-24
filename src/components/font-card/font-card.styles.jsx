@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Container = styled.div`
+const Container = styled.section`
   box-shadow: ${props => props.theme.bs};
   border: 1px solid ${props => props.theme.border};
   padding: 24px;
@@ -16,9 +16,13 @@ const Container = styled.div`
   :hover {
     border-top: 2px solid ${props => props.theme.accent};
   }
-  h2 {
+  @media (max-width: 640px) {
+    max-width: unset;
+    width: 95%;
+    margin: 12px auto;
   }
   p {
+    word-wrap: break-word;
   }
 `;
 

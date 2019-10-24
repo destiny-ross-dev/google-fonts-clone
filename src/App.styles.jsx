@@ -75,4 +75,9 @@ export const ToTopButton = styled.button`
   }
 `;
 
+export const AppContent = styled.div`
+  width: 100vw;
+  height: 100vh;
+`;
+
 export default GlobalStyle;
