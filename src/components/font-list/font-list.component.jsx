@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from "react";
 import FontListStyles from "./font-list.styles";
 import Loader from "../loader/loader.component";
-import { LOAD_ON_SCROLL } from "../../config";
+import { LOAD_ON_SCROLL, LOAD_ON_INIT } from "../../config";
 
 const FontCard = React.lazy(() => import("../font-card/font-card.component"));
 // import FontCard from "../font-card/font-card.component";
@@ -11,14 +11,18 @@ const FontList = ({
   fontSize,
   searchQuery,
   setOffset,
-  offset
+  offset,
+  getPage
 }) => {
   useEffect(() => {
     const loadMore = () => {
       if (searchQuery !== "") {
-        setOffset(LOAD_ON_SCROLL);
+        setOffset(LOAD_ON_INIT);
+        return;
       }
       if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        console.log({ offset }, { next: offset + LOAD_ON_SCROLL });
+        getPage(offset + LOAD_ON_SCROLL);
         setOffset(offset + LOAD_ON_SCROLL);
       }
     };

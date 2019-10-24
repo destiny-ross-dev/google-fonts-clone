@@ -56,29 +56,23 @@ function App() {
   const [user, setUser] = useState({});
 
   // Sends initial request to server to request fonts from api
-  useEffect(() => {
-    const loadData = async () => {
-      const res = await axios.get("/fonts/init");
-      console.log(res.data.msg);
-      setDataLoaded(true);
-    };
-    loadData();
-  }, []);
 
   const [offset, setOffset] = useState(LOAD_ON_INIT);
   const [listData, setListData] = useState([]);
   useEffect(() => {
-    const getPage = async () => {
-      const res = await axios.get(`/fonts?offset=${offset}`);
-      console.log(res.data.length, res.data);
-      setListData(listData => [...listData, ...res.data]);
-    };
-    getPage();
-  }, [offset]);
+    getPage(LOAD_ON_INIT);
+  }, []);
+
+  const getPage = async (offset = LOAD_ON_INIT) => {
+    const res = await axios.get(`/fonts?offset=${offset}`);
+    console.log(res.data.length, res.data);
+    setListData(listData => [...listData, ...res.data]);
+  };
 
   const handleSearch = async () => {
+    setOffset(LOAD_ON_INIT);
     const newList = await axios.get(`/fonts/search?name=${searchQuery}`);
-    console.log(newList);
+    console.log({ list: newList.data });
     setListData(newList.data);
   };
 
@@ -147,6 +141,7 @@ function App() {
             offset={offset}
             setOffset={setOffset}
             data={listData}
+            getPage={getPage}
           />
 
           {displayToTop && (
