@@ -11,15 +11,17 @@ const FontList = ({
   searchQuery,
   setOffset,
   offset,
-  savedList
+  getPage
 }) => {
   useEffect(() => {
     const loadMore = () => {
-      if (searchQuery.length > 0) {
-        // setOffset(LOAD_ON_INIT);
+      if (searchQuery !== "") {
+        setOffset(LOAD_ON_INIT);
         return;
       }
       if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        console.log({ offset }, { next: offset + LOAD_ON_SCROLL });
+        getPage(offset + LOAD_ON_SCROLL);
         setOffset(offset + LOAD_ON_SCROLL);
       }
     };

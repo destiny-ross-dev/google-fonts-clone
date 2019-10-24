@@ -61,36 +61,22 @@ function App() {
   const [token, setToken] = useState({});
   const [user, setUser] = useState({});
 
-  const handleTextUpdate = type => {
-    const initialStates = {
-      sentence: "Sphinx of black quartz, judge my vow.",
-      alphabet:
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ‘?’“!”(%)[#]{@}/&<-+÷×=>®©$€£¥¢:;,.*",
-      paragraph:
-        "Though the gravity still dragged at him, his muscles were making great efforts to adjust. After the daily classes he no longer collapsed immediately into bed. Only the nightmares got worse.",
-      numerical: "1234567890",
-      custom: ""
-    };
-    console.log({ type });
-    setDisplayTextType(type);
-    console.log({ displayText: initialStates[type] });
-    setDisplayText(initialStates[type]);
-  };
-
   const [offset, setOffset] = useState(LOAD_ON_INIT);
   const [listData, setListData] = useState([]);
   useEffect(() => {
-    const getPage = async () => {
-      const res = await axios.get(`/fonts?offset=${offset}`);
-      console.log(res.data.length, res.data);
-      setListData(listData => [...listData, ...res.data]);
-    };
-    getPage();
-  }, [offset]);
+    getPage(LOAD_ON_INIT);
+  }, []);
+
+  const getPage = async (offset = LOAD_ON_INIT) => {
+    const res = await axios.get(`/fonts?offset=${offset}`);
+    console.log(res.data.length, res.data);
+    setListData(listData => [...listData, ...res.data]);
+  };
 
   const handleSearch = async () => {
+    setOffset(LOAD_ON_INIT);
     const newList = await axios.get(`/fonts/search?name=${searchQuery}`);
-    console.log(newList);
+    console.log({ list: newList.data });
     setListData(newList.data);
   };
 
@@ -136,6 +122,34 @@ function App() {
           token={token}
           setToken={setToken}
         />
+        <Toolbar
+          searchQuery={searchQuery}
+          setSearchQuery={handleSearchInput}
+          onSearchSubmit={handleSearch}
+          toolbarFixedToTop={toolbarFixedToTop}
+          displayTextType={displayTextType}
+          setDisplayTextType={setDisplayTextType}
+          displayText={displayText}
+          setDisplayText={setDisplayText}
+          fontSize={fontSize}
+          setFontSize={setFontSize}
+          reset={reset}
+          themeIsLight={themeIsLight}
+          setThemeIsLight={setThemeIsLight}
+          listType={listType}
+          setListType={setListType}
+        />
+        <Suspense fallback={<Loader />}>
+          <FontList
+            displayText={displayText}
+            fontSize={fontSize}
+            searchQuery={searchQuery}
+            dataLoaded={dataLoaded}
+            offset={offset}
+            setOffset={setOffset}
+            data={listData}
+            getPage={getPage}
+          />
 
         <Switch>
           <Route

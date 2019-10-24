@@ -8,17 +8,22 @@ const apiCall = async () => {
     `https://www.googleapis.com/webfonts/v1/webfonts?key=${config.secrets.gFontsKey}&sort=popularity`
   );
   fonts = res.data.items;
+
 };
 
-// const getAll = async (req, res, next) => {
-//   apiCall();
+const getAll = async (req, res, next) => {
+  apiCall();
 
-//   // fonts = fontsList.data.items;
-//   res.status(200).json({ msg: "loaded" });
-// };
+  // fonts = fontsList.data.items;
+  res.status(200).json({ msg: "loaded" });
+};
 
 const getPage = async (req, res) => {
   let { offset } = req.query;
+
+  if (fonts.length === 0) {
+    await apiCall();
+  }
 
   if (fonts.length === 0) {
     await apiCall();
